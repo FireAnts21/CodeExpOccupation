@@ -79,6 +79,7 @@ function WakeUpScreen({route, navigation}) {
 
   return (
     <View style={styles.awakenView}>
+      <Image style={styles.image} source={require('./assets/images/bed.png')}/>
       <Text>{ renderTimePastAlarm() }</Text>
       <TouchableOpacity style={styles.awakenOptionButton} onPress={() => navigation.navigate("Morning")}>
           <Text style={styles.awakenOptionsTxt}>
