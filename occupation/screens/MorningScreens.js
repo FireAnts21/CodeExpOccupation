@@ -7,12 +7,57 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-export default function BrushTeethScreen( { navigation }) {
+export function BrushTeethScreen( { navigation }) {
   return (
     <View style={styles.morningView}>
-      <Text style={styles.activityTxt}>Activity chosen:</Text>
+      <Text style={styles.activityTxt}>Activity chosen: Brush Teeth</Text>
       <Text style={styles.morningDescriptionTxt}>Your breath smells a little less smelly.</Text>
       <Image style={styles.activityImage} source={require('../assets/images/toothbrush.png')} />
+      <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.morningOptionsTxt}>
+            Go Back
+        </Text>          
+        </TouchableOpacity>
+    </View>
+  );
+}
+
+export function EatBreakfastScreen( { navigation }) {
+  return (
+    <View style={styles.morningView}>
+      <Text style={styles.activityTxt}>Activity chosen: Eat breakfast</Text>
+      <Text style={styles.morningDescriptionTxt}>Your stomach has stopped growling.</Text>
+      <Image style={styles.activityImage} source={require('../assets/images/breakfast.png')} />
+      <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.morningOptionsTxt}>
+            Go Back
+        </Text>          
+        </TouchableOpacity>
+    </View>
+  );
+}
+
+export function ToiletScreen( { navigation }) {
+  return (
+    <View style={styles.morningView}>
+      <Text style={styles.activityTxt}>Activity chosen:Toilet</Text>
+      <Text style={styles.morningDescriptionTxt}>You feel relieved.</Text>
+      <Image style={styles.activityImage} source={require('../assets/images/toilet.png')} />
+      <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
+        <Text style={styles.morningOptionsTxt}>
+            Go Back
+        </Text>          
+        </TouchableOpacity>
+    </View>
+  );
+}
+
+export function DressUpScreen( { navigation }) {
+  return (
+    <View style={styles.morningView}>
+      <Text style={styles.activityTxt}>Activity chosen:Dress up</Text>
+      <Text style={styles.morningDescriptionTxt}>At least you aren't going to work in your pyjamas.</Text>
+      <Image style={styles.activityImage} source={require('../assets/images/dressup.png')} />
       <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
         <Text style={styles.morningOptionsTxt}>
             Go Back
@@ -45,7 +90,7 @@ const styles = StyleSheet.create({
   morningDescriptionTxt:{
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'blue',
+    color: '#c65437',
     textAlign: 'center',
     backgroundColor: 'yellow',
     margin: 10,

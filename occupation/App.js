@@ -11,7 +11,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { FontAwesome } from '@expo/vector-icons';
-import BrushTeethScreen from './screens/MorningScreens';
+import { BrushTeethScreen, ToiletScreen, DressUpScreen, EatBreakfastScreen } from './screens/MorningScreens';
 
 // variable for the whole main stack
 const TopStack = createStackNavigator();
@@ -150,7 +150,7 @@ function MorningScreen({navigation, route}) {
       {isEatVisible?
       <TouchableOpacity style={styles.morningOptionButton} onPress={() => {
         setEatVisible(false);
-        navigation.navigate("ToothBrush");
+        navigation.navigate("Breakfast");
         }}>
         <Text style={styles.morningOptionsTxt}>
           Eat
@@ -160,7 +160,7 @@ function MorningScreen({navigation, route}) {
       {isToiletVisible?
       <TouchableOpacity style={styles.morningOptionButton} onPress={() => {
         setToiletVisible(false);
-        navigation.navigate("ToothBrush");
+        navigation.navigate("Toilet");
         }}>
         <Text style={styles.morningOptionsTxt}>
           Toilet
@@ -170,7 +170,7 @@ function MorningScreen({navigation, route}) {
       {isDressUpVisible?
       <TouchableOpacity style={styles.morningOptionButton} onPress={() => {
         setDressUpVisible(false);
-        navigation.navigate("ToothBrush");
+        navigation.navigate("DressUp");
         }}>
         <Text style={styles.morningOptionsTxt}>
           Dress up
@@ -180,10 +180,10 @@ function MorningScreen({navigation, route}) {
 
       {isLeaveVisible?
       <TouchableOpacity style={styles.leaveHouseBtn} onPress={() => {
-        navigation.navigate("ToothBrush");
+        navigation.navigate("LeaveHome");
         }}>
         <Text style={styles.morningOptionsTxt}>
-          Dress up
+          Leave house
         </Text>          
       </TouchableOpacity>
       :null}
@@ -230,6 +230,21 @@ export default function App() {
         <TopStack.Screen
           name="ToothBrush"
           component={BrushTeethScreen}
+          options={{ headerShown: false }}
+        />
+        <TopStack.Screen
+          name="Breakfast"
+          component={EatBreakfastScreen}
+          options={{ headerShown: false }}
+        />
+        <TopStack.Screen
+          name="Toilet"
+          component={ToiletScreen}
+          options={{ headerShown: false }}
+        />
+        <TopStack.Screen
+          name="DressUp"
+          component={DressUpScreen}
           options={{ headerShown: false }}
         />
 
@@ -308,7 +323,7 @@ const styles = StyleSheet.create({
   },
 
   leaveHouseBtn:{
-    color: '#fbf9c7',
+    backgroundColor: 'red',
     padding: 10,
     borderRadius: 10,
     margin: 10,
