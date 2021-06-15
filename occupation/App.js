@@ -11,9 +11,12 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { FontAwesome } from '@expo/vector-icons';
+import BrushTeethScreen from './screens/MorningScreens';
 
 // variable for the whole main stack
 const TopStack = createStackNavigator();
+
+// add variables from morning routine affecting other aspects
 
 // Title screen
 function TitleScreen({navigation}) {
@@ -93,38 +96,112 @@ function WakeUpScreen({route, navigation}) {
           </Text>          
         </TouchableOpacity>
         :null}
-        
     </View>
   );
 }
 
 // screen with list of options after the user wakes up
-function MorningScreen({navigation}) {
+function MorningScreen({navigation, route}) {
+  const [isReadyForWork, setReadyForWork] = useState(false);
+  const [isLeaveVisible, setLeaveVisible] = useState(false);
+
+  const [isBrushTeethVisible, setBrushTeethVisible] = useState(true);
+  const [isEatVisible, setEatVisible] = useState(true);
+  const [isToiletVisible, setToiletVisible] = useState(true);
+  const [isDressUpVisible, setDressUpVisible] = useState(true);
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    checkReadyForWork();
+    checkCanLeaveHouse();
+  });
+
+  function checkReadyForWork() {
+    if (!isBrushTeethVisible 
+      || !isToiletVisible
+      || !isEatVisible
+      || !isDressUpVisible) {
+        setLeaveVisible(true);
+      }
+  }
+
+  function checkCanLeaveHouse() {
+    if (!isBrushTeethVisible 
+      && !isToiletVisible
+      && !isEatVisible
+      && !isDressUpVisible) {
+        setReadyForWork(true);
+      }
+  }
+
   return (
     <View style={styles.morningView}>
-      <Text style={styles.morningQnTxt}>You just woke up. Now what?</Text>
-      <TouchableOpacity style={styles.morningOptionButton} onPress={() => navigation.navigate("Intro")}>
+      <Text style={styles.morningQnTxt}>{isReadyForWork? "All set for work" : "You just woke up. Now what?"}</Text>
+      {isBrushTeethVisible?
+      <TouchableOpacity style={styles.morningOptionButton} onPress={() => {
+        setBrushTeethVisible(false);
+        navigation.navigate("ToothBrush");
+        }}>
         <Text style={styles.morningOptionsTxt}>
           Brush Teeth
         </Text>          
       </TouchableOpacity>
-      <TouchableOpacity style={styles.morningOptionButton} onPress={() => navigation.navigate("Intro")}>
+      :null}
+      {isEatVisible?
+      <TouchableOpacity style={styles.morningOptionButton} onPress={() => {
+        setEatVisible(false);
+        navigation.navigate("ToothBrush");
+        }}>
         <Text style={styles.morningOptionsTxt}>
           Eat
         </Text>          
       </TouchableOpacity>
-      <TouchableOpacity style={styles.morningOptionButton} onPress={() => navigation.navigate("Intro")}>
+      :null}
+      {isToiletVisible?
+      <TouchableOpacity style={styles.morningOptionButton} onPress={() => {
+        setToiletVisible(false);
+        navigation.navigate("ToothBrush");
+        }}>
         <Text style={styles.morningOptionsTxt}>
           Toilet
         </Text>          
       </TouchableOpacity>
-      <TouchableOpacity style={styles.morningOptionButton} onPress={() => navigation.navigate("Intro")}>
+      :null}
+      {isDressUpVisible?
+      <TouchableOpacity style={styles.morningOptionButton} onPress={() => {
+        setDressUpVisible(false);
+        navigation.navigate("ToothBrush");
+        }}>
         <Text style={styles.morningOptionsTxt}>
           Dress up
         </Text>          
       </TouchableOpacity>
+      :null}
+
+      {isLeaveVisible?
+      <TouchableOpacity style={styles.leaveHouseBtn} onPress={() => {
+        navigation.navigate("ToothBrush");
+        }}>
+        <Text style={styles.morningOptionsTxt}>
+          Dress up
+        </Text>          
+      </TouchableOpacity>
+      :null}
             
     </View>
+  );
+}
+
+function ToothBrushScreen({ navigation }) {
+  return (
+  <View style={styles.morningView}>
+    <Text style={styles.morningQnTxt}>ToothBrush</Text>
+    <TouchableOpacity style={styles.morningOptionButton} onPress={() => navigation.navigate('Morning')}>
+      <Text style={styles.morningOptionsTxt}>
+        Go Back
+      </Text>          
+    </TouchableOpacity>
+  </View>
   );
 }
 
@@ -144,11 +221,18 @@ export default function App() {
           component={WakeUpScreen}
           options={{ headerShown: false }}
         />
+
         <TopStack.Screen
           name="Morning"
           component={MorningScreen}
           options={{ headerShown: false }}
         />
+        <TopStack.Screen
+          name="ToothBrush"
+          component={BrushTeethScreen}
+          options={{ headerShown: false }}
+        />
+
       </TopStack.Navigator>
     </NavigationContainer>
   );
@@ -221,6 +305,13 @@ const styles = StyleSheet.create({
   morningOptionsTxt:{
     fontSize: 20,
     color: '#f4e2e2'
+  },
+
+  leaveHouseBtn:{
+    color: '#fbf9c7',
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
   },
 
 });
