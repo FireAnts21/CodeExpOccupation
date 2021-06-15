@@ -192,18 +192,21 @@ function MorningScreen({navigation, route}) {
   );
 }
 
-function ToothBrushScreen({ navigation }) {
+function LeaveHouseScreen({ navigation }) {
   return (
-  <View style={styles.morningView}>
-    <Text style={styles.morningQnTxt}>ToothBrush</Text>
-    <TouchableOpacity style={styles.morningOptionButton} onPress={() => navigation.navigate('Morning')}>
-      <Text style={styles.morningOptionsTxt}>
-        Go Back
+  <View style={styles.leaveHomeView}>
+    <Text style={styles.leaveHomeTxt}>You left the house</Text>
+    <Image style={styles.frontDoorImage} source={require('./assets/images/frontDoor.png')}/>
+    <TouchableOpacity style={styles.leaveHomeButton} onPress={() => navigation.navigate('Intro')}>
+      <Text style={styles.leaveHomeOptionsTxt}>
+        Travel to work
       </Text>          
     </TouchableOpacity>
   </View>
   );
 }
+
+
 
 // function containing the whole stack
 export default function App() {
@@ -245,6 +248,12 @@ export default function App() {
         <TopStack.Screen
           name="DressUp"
           component={DressUpScreen}
+          options={{ headerShown: false }}
+        />
+        
+        <TopStack.Screen
+          name="LeaveHome"
+          component={LeaveHouseScreen}
           options={{ headerShown: false }}
         />
 
@@ -329,4 +338,32 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 
+
+  leaveHomeTxt: {
+    fontSize: 40,
+    color: '#3c1361'
+  },
+  leaveHomeView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#Af77d5',
+  },
+  leaveHomeButton: {
+    backgroundColor: '#52307c',
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+  },
+  leaveHomeOptionsTxt:{
+    fontSize: 20,
+    color: '#bca0dc'
+  },
+  frontDoorImage: {
+    width: 200,
+    height: 200,
+    margin: 10,
+  },
+
 });
+
