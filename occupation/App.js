@@ -6,9 +6,7 @@ import {
   View,
   Image,
   TouchableOpacity,
-  FlatList,
-  Button,
-  TextInput,
+  Alert,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -33,23 +31,68 @@ function TitleScreen({navigation}) {
   );
 }
 
+function setSnoozeMessge (snoozeCount) {
+  switch(snoozeCount) {
+    case 0:
+      return "Just 5 more minutes. Right?";
+    case 1:
+      return "Ok 10 minutes now";
+    case 2:
+      return "This is getting ridiculous";
+    case 3:
+      return "Hey! Time to wake up!";
+    case 4:
+      return "You're going to be late!";
+    case 5:
+      return "GET UP!";
+    default:
+      return "YOU CAN'T SLEEP FOREVER!!!";
+  }
+}
+
 // screen with the bed and wake up options
-function WakeUpScreen({navigation}) {
-  const [snoozeCount, setSnoozeCount] = useState();
-  
+function WakeUpScreen({route, navigation}) {
+  const [snoozeCount, setSnoozeCount] = useState(0);
+  const [isSnoozeVisible, setIsSnoozeVisible] = useState(true);
+
+  function snoozeButtonAlert() {
+    Alert.alert(
+      "Alarm snoozed",
+      setSnoozeMessge(snoozeCount),
+      [
+        { text: "OK", onPress: () => {
+          console.log("OK Pressed");
+          setSnoozeCount(snoozeCount + 1);
+          if (snoozeCount > 5) {
+            setIsSnoozeVisible(false);
+          }
+        }}
+      ]
+    );
+  }
+
+  function renderTimePastAlarm() {
+    if (snoozeCount != 0) {
+      return (snoozeCount * 5).toString() + " minutes"
+    }
+  }
+
   return (
     <View style={styles.awakenView}>
-      <Image style={styles.image} source={require('./assets/images/bed.png')}/>
+      <Text>{ renderTimePastAlarm() }</Text>
       <TouchableOpacity style={styles.awakenOptionButton} onPress={() => navigation.navigate("Morning")}>
           <Text style={styles.awakenOptionsTxt}>
             Wake Up!
           </Text>          
         </TouchableOpacity>
-        <TouchableOpacity style={styles.awakenOptionButton} onPress={() => navigation.navigate("Intro")}>
+        {isSnoozeVisible?
+        <TouchableOpacity style={styles.awakenOptionButton} onPress={() => snoozeButtonAlert() }>
           <Text style={styles.awakenOptionsTxt}>
             Hit snooze button
           </Text>          
         </TouchableOpacity>
+        :null}
+        
     </View>
   );
 }
