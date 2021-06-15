@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
   TouchableOpacity,
   FlatList,
   Button,
@@ -16,17 +17,37 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const TopStack = createStackNavigator();
 
-function TitleScreen() {
+function TitleScreen({navigation}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Occupation!</Text>
-      <TouchableOpacity style={styles.startButton} onPress={() => navigation.navigate("")}>
+      <TouchableOpacity style={styles.startButton} onPress={() => navigation.navigate("Awaken")}>
           <Text style={styles.startBtnTxt}>
             Let's go! 
             <FontAwesome name="play-circle" size={24} color="black" />
           </Text>          
         </TouchableOpacity>
       <StatusBar style="auto" />
+    </View>
+  );
+}
+
+function WakeUpScreen({navigation}) {
+  const [snoozeCount, setSnoozeCount] = useState();
+  
+  return (
+    <View style={styles.awakenView}>
+      <Image style={styles.image} source={require('./assets/images/bed.png')}/>
+      <TouchableOpacity style={styles.awakenOptionButton} onPress={() => navigation.navigate("Intro")}>
+          <Text style={styles.awakenOptionsTxt}>
+            Wake Up!
+          </Text>          
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.awakenOptionButton} onPress={() => navigation.navigate("Intro")}>
+          <Text style={styles.awakenOptionsTxt}>
+            Hit snooze button
+          </Text>          
+        </TouchableOpacity>
     </View>
   );
 }
@@ -39,6 +60,11 @@ export default function App() {
         <TopStack.Screen
           name="Intro"
           component={TitleScreen}
+          options={{ headerShown: false }}
+        />
+        <TopStack.Screen
+          name="Awaken"
+          component={WakeUpScreen}
           options={{ headerShown: false }}
         />
       </TopStack.Navigator>
@@ -67,5 +93,27 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     margin: 10,
-  }
+  },
+  image: {
+    width: 150,
+    height: 100,
+    borderRadius: 50,
+  },
+  awakenView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'lightblue',
+  },
+  awakenOptionButton: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+  },
+  awakenOptionsTxt:{
+    fontSize: 20,
+    color: 'white'
+  },
+
 });
