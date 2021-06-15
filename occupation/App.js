@@ -14,9 +14,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { FontAwesome } from '@expo/vector-icons';
 
-
+// variable for the whole main stack
 const TopStack = createStackNavigator();
 
+// Title screen
 function TitleScreen({navigation}) {
   return (
     <View style={styles.container}>
@@ -32,13 +33,14 @@ function TitleScreen({navigation}) {
   );
 }
 
+// screen with the bed and wake up options
 function WakeUpScreen({navigation}) {
   const [snoozeCount, setSnoozeCount] = useState();
   
   return (
     <View style={styles.awakenView}>
       <Image style={styles.image} source={require('./assets/images/bed.png')}/>
-      <TouchableOpacity style={styles.awakenOptionButton} onPress={() => navigation.navigate("Intro")}>
+      <TouchableOpacity style={styles.awakenOptionButton} onPress={() => navigation.navigate("Morning")}>
           <Text style={styles.awakenOptionsTxt}>
             Wake Up!
           </Text>          
@@ -52,6 +54,37 @@ function WakeUpScreen({navigation}) {
   );
 }
 
+// screen with list of options after the user wakes up
+function MorningScreen({navigation}) {
+  return (
+    <View style={styles.morningView}>
+      <Text style={styles.morningQnTxt}>You just woke up. Now what?</Text>
+      <TouchableOpacity style={styles.morningOptionButton} onPress={() => navigation.navigate("Intro")}>
+        <Text style={styles.morningOptionsTxt}>
+          Brush Teeth
+        </Text>          
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.morningOptionButton} onPress={() => navigation.navigate("Intro")}>
+        <Text style={styles.morningOptionsTxt}>
+          Eat
+        </Text>          
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.morningOptionButton} onPress={() => navigation.navigate("Intro")}>
+        <Text style={styles.morningOptionsTxt}>
+          Toilet
+        </Text>          
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.morningOptionButton} onPress={() => navigation.navigate("Intro")}>
+        <Text style={styles.morningOptionsTxt}>
+          Dress up
+        </Text>          
+      </TouchableOpacity>
+            
+    </View>
+  );
+}
+
+// function containing the whole stack
 export default function App() {
 
   return (
@@ -67,12 +100,18 @@ export default function App() {
           component={WakeUpScreen}
           options={{ headerShown: false }}
         />
+        <TopStack.Screen
+          name="Morning"
+          component={MorningScreen}
+          options={{ headerShown: false }}
+        />
       </TopStack.Navigator>
     </NavigationContainer>
   );
 
 }
 
+// style sheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -80,6 +119,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  
   title: {
     fontSize: 40,
     fontWeight: 'bold',
@@ -94,11 +134,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 10,
   },
+  
   image: {
     width: 150,
     height: 100,
     borderRadius: 50,
   },
+
   awakenView: {
     flex: 1,
     justifyContent: 'center',
@@ -114,6 +156,27 @@ const styles = StyleSheet.create({
   awakenOptionsTxt:{
     fontSize: 20,
     color: 'white'
+  },
+
+  morningQnTxt: {
+    fontSize: 20,
+    color: 'black'
+  },
+  morningView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fac457',
+  },
+  morningOptionButton: {
+    backgroundColor: '#fa8e33',
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+  },
+  morningOptionsTxt:{
+    fontSize: 20,
+    color: '#f4e2e2'
   },
 
 });
