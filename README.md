@@ -1,9 +1,10 @@
 # CodeExpOccupation
-![App logo](/ReadMeImages/OccupationLogo.gif)
+
+<img src="/ReadMeImages/OccupationLogo.gif" width="400" height="400">
 
 A office work simulation app
 
-<img src="/ReadMeImages/SnoozeGif.gif" width="100" height="100">
+<img src="/ReadMeImages/SnoozeGif.gif" width="400" height="400">
 
 ![Snooze Alarm](/ReadMeImages/SnoozeGif.gif)
  
