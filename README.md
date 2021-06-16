@@ -1,5 +1,6 @@
 # CodeExpOccupation
 ![App logo](/ReadMeImages/OccupationLogo.gif)
+
 A office work simulation app
 
 ![Snooze Alarm](/ReadMeImages/SnoozeGif.gif)
