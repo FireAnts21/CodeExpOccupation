@@ -4,7 +4,7 @@
 
 A office work simulation app
 
-<img src="/ReadMeImages/SnoozeGif.gif" width="400" height="800">
+<img src="/ReadMeImages/SnoozeGif.gif" width="300" height="525">
 
 ![Snooze Alarm](/ReadMeImages/SnoozeGif.gif)
  
