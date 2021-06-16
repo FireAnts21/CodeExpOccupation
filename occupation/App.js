@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  FlatList,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -101,7 +102,7 @@ function WakeUpScreen({route, navigation}) {
 }
 
 // screen with list of options after the user wakes up
-function MorningScreen({navigation, route}) {
+function MorningScreen({navigation}) {
   const [isReadyForWork, setReadyForWork] = useState(false);
   const [isLeaveVisible, setLeaveVisible] = useState(false);
 
@@ -197,7 +198,7 @@ function LeaveHouseScreen({ navigation }) {
   <View style={styles.leaveHomeView}>
     <Text style={styles.leaveHomeTxt}>You left the house</Text>
     <Image style={styles.frontDoorImage} source={require('./assets/images/frontDoor.png')}/>
-    <TouchableOpacity style={styles.leaveHomeButton} onPress={() => navigation.navigate('Intro')}>
+    <TouchableOpacity style={styles.leaveHomeButton} onPress={() => navigation.navigate('Travelling')}>
       <Text style={styles.leaveHomeOptionsTxt}>
         Travel to work
       </Text>          
@@ -206,6 +207,101 @@ function LeaveHouseScreen({ navigation }) {
   );
 }
 
+
+function TravelDetailsScreen({ navigation, route }) {
+  const { travelImageLink, Description } = route.params;
+
+  return (
+    <View style={styles.travelDetailsView}>
+      <Text style={styles.travelDetailTxt1}>Mode of transport chosen:</Text>
+      <Text style={styles.travelDetailDescriptionTxt}>{Description}</Text>
+      <Image style={styles.travelDetailImage} source={{ uri: travelImageLink}} />
+      <TouchableOpacity style={styles.toOfficeBtn} onPress={() => navigation.navigate('Intro')}>
+        <Text style={styles.toOfficeTxt}>
+          Continue into Office
+        </Text>          
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+function TravelSelectionScene({ navigation }) {
+
+  const TravelOptions = [
+    {
+      OptionText: 'Walk',
+      travelImageLink:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2s46gtrFDR29T9afG2imcLE2wel7jtK8UVg&usqp=CAU',
+      Description: "You even stop to smell the roses",
+      id: 1,
+    },
+    {
+      OptionText: 'Run',
+      travelImageLink:'https://www.stockvault.net/data/2018/07/17/253138/preview16.jpg',
+      Description: "Even travelling to work is a workout for you",
+      id: 2,
+    },
+    {
+      OptionText: 'Cycle',
+      travelImageLink:'https://mopirg.org/sites/pirg/files/46368744211_57f61cd627_o.jpg',
+      Description: "You choose the environmental option",
+      id: 3,
+    },
+    {
+      OptionText: 'Skate',
+      travelImageLink:'https://live.staticflickr.com/3120/5715025524_777dec59ca_b.jpg',
+      Description: "She was a s8r boi she said see you l8r boi",
+      id: 4,
+    },
+    {
+      OptionText: 'Train',
+      travelImageLink:'https://upload.wikimedia.org/wikipedia/commons/9/97/MRT_in_Singapore.jpg',
+      Description: "Please mind the gap",
+      id: 5,
+    },
+    {
+      OptionText: 'Bus',
+      travelImageLink:'https://static.straitstimes.com.sg/s3fs-public/articles/2019/02/13/wc-bus-1302.jpg',
+      Description: "Hopefullu you've got a seat for the ride",
+      id: 6,
+    },
+    {
+      OptionText: 'Car',
+      travelImageLink:'https://live.staticflickr.com/3201/2454925189_c1af72cc94_c.jpg',
+      Description: "Cause exercise and the environment is overrate anyway. Right?",
+      id: 7,
+    },
+    {
+      OptionText: 'Chauffeur',
+      travelImageLink:'https://live.staticflickr.com/54/124346198_aa0a2afaf6.jpg',
+      Description: "Way to flex on everyone :P",
+      id: 8,
+    },
+  ]
+
+  // note the parameter has to be called item lol
+  function renderItem({ item }) {
+    return (
+      <View style={styles.travelItem}>
+      <TouchableOpacity style={styles.travelButton} onPress={() => navigation.navigate('TravelDetails', {...item })}>
+        <Text style={styles.travelOptionText}>
+          {item .OptionText}
+        </Text>          
+      </TouchableOpacity>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.travelOptionsView}>
+      <Text style={styles.travelQn}>How do you plan to travel to work?</Text>
+      <FlatList
+        style={{ width: "100%" }}
+        data={TravelOptions}
+        renderItem={renderItem}
+      />
+    </View>
+  )
+}
 
 
 // function containing the whole stack
@@ -254,6 +350,17 @@ export default function App() {
         <TopStack.Screen
           name="LeaveHome"
           component={LeaveHouseScreen}
+          options={{ headerShown: false }}
+        />
+
+        <TopStack.Screen
+          name="Travelling"
+          component={TravelSelectionScene}
+          options={{ headerShown: false }}
+        />
+        <TopStack.Screen
+          name="TravelDetails"
+          component={TravelDetailsScreen}
           options={{ headerShown: false }}
         />
 
@@ -363,6 +470,75 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     margin: 10,
+  },
+
+  travelItem:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  travelOptionsView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#efc3e6',
+  },
+  travelQn: {
+    fontSize: 20,
+    color: 'black'
+  },
+  travelListItem: {
+    height: 50,
+    justifyContent: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "#efc3e6",
+    paddingLeft: 20,
+  },
+  travelButton: {
+    backgroundColor: '#9C89B8',
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+  },
+  travelOptionText: {
+    fontSize: 20,
+    color: 'white'
+    
+  },
+
+  travelDetailsView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'lavender',
+  },
+  travelDetailTxt1:{
+    fontSize: 15,
+  },
+  travelDetailDescriptionTxt:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#F0E6EF',
+    textAlign: 'center',
+    backgroundColor: '#9C89B8',
+    margin: 10,
+    padding: 20,
+    borderRadius: 15,
+  },
+  travelDetailImage:{
+    width: 200,
+    height: 200,
+    margin: 10,
+  },
+  toOfficeBtn: {
+    backgroundColor: '#f0a6ca',
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+  },
+  toOfficeTxt:{
+    fontSize: 20,
+    color: 'white'
   },
 
 });
