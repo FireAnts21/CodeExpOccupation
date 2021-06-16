@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
 export default function WatchShowScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Netflix and chill!</Text>
+      <Text style={styles.text}>Netflix binge!</Text>
       <TouchableOpacity
         onPress={() => {
           navigation.goBack();
