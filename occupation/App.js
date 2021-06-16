@@ -216,7 +216,7 @@ function TravelDetailsScreen({ navigation, route }) {
       <Text style={styles.travelDetailTxt1}>Mode of transport chosen:</Text>
       <Text style={styles.travelDetailDescriptionTxt}>{Description}</Text>
       <Image style={styles.travelDetailImage} source={{ uri: travelImageLink}} />
-      <TouchableOpacity style={styles.toOfficeBtn} onPress={() => navigation.navigate('Intro')}>
+      <TouchableOpacity style={styles.toOfficeBtn} onPress={() => navigation.navigate('OfficeDesk')}>
         <Text style={styles.toOfficeTxt}>
           Continue into Office
         </Text>          
@@ -261,7 +261,7 @@ function TravelSelectionScene({ navigation }) {
     {
       OptionText: 'Bus',
       travelImageLink:'https://static.straitstimes.com.sg/s3fs-public/articles/2019/02/13/wc-bus-1302.jpg',
-      Description: "Hopefullu you've got a seat for the ride",
+      Description: "Hopefully you've got a seat for the ride",
       id: 6,
     },
     {
@@ -303,6 +303,105 @@ function TravelSelectionScene({ navigation }) {
   )
 }
 
+function OfficeTasksScreen({ navigation, route }) {
+  const { travelImageLink, Description } = route.params;
+
+  return (
+    <View style={styles.officeDetailsView}>
+      <Text style={styles.officeDetailTxt1}>Office activity choosen:</Text>
+      <Text style={styles.officeDetailDescriptionTxt}>{Description}</Text>
+      <Image style={styles.officeDetailImage} source={{ uri: travelImageLink}} />
+      <TouchableOpacity style={styles.toDeskBtn} onPress={() => navigation.navigate('OfficeDesk')}>
+        <Text style={styles.toDeskTxt}>
+          Back to desk
+        </Text>          
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+function OfficeDeskScreen({ navigation }) {
+
+  const [tasksDone, setTasksDone] = useState(0);
+
+  const TravelOptions = [
+    {
+      OptionText: 'Check Emails',
+      travelImageLink:'',
+      Description: "Your email is full of spam as usual. You delete all.",
+      id: 1,
+    },
+    {
+      OptionText: 'Coffee Break',
+      travelImageLink:'',
+      Description: "Time for more coffee!",
+      id: 2,
+    },
+    {
+      OptionText: 'Snack',
+      travelImageLink:'',
+      Description: "These chips aren't going to eat themselves anyways.",
+      id: 3,
+    },
+    {
+      OptionText: 'Chat with coworker',
+      travelImageLink:'',
+      Description: "That dog is cute but we've already seen a thousand pictures of it.",
+      id: 4,
+    },
+    {
+      OptionText: 'Meeting',
+      travelImageLink:'',
+      Description: "This could honestly have been an email.",
+      id: 5,
+    },
+    {
+      OptionText: 'Napping',
+      travelImageLink:'',
+      Description: "Just a little shut eye won't hurt right?",
+      id: 6,
+    },
+    {
+      OptionText: 'Phone Game',
+      travelImageLink:'',
+      Description: "Work was too boring anyways",
+      id: 7,
+    },
+    {
+      OptionText: 'Toilet',
+      travelImageLink:'',
+      Description: "Boss gets a dollar, we get a dime, that's why we poop on company time XD",
+      id: 8,
+    },
+  ]
+
+  // note the parameter has to be called item lol
+  function renderItem({ item }) {
+    return (
+      <View style={styles.officeItem}>
+      <TouchableOpacity style={styles.officeButton} onPress={() => {
+        navigation.navigate('OfficeTasks', {...item });
+        setTasksDone(tasksDone + 1);
+        }}>
+        <Text style={styles.officeOptionText}>
+          {item .OptionText}
+        </Text>          
+      </TouchableOpacity>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.officeOptionsView}>
+      <Text style={styles.officeQn}>What to do at work?</Text>
+      <FlatList
+        style={{ width: "100%" }}
+        data={TravelOptions}
+        renderItem={renderItem}
+      />
+    </View>
+  )
+}
 
 // function containing the whole stack
 export default function App() {
@@ -361,6 +460,17 @@ export default function App() {
         <TopStack.Screen
           name="TravelDetails"
           component={TravelDetailsScreen}
+          options={{ headerShown: false }}
+        />
+
+        <TopStack.Screen
+          name="OfficeDesk"
+          component={OfficeDeskScreen}
+          options={{ headerShown: false }}
+        />
+        <TopStack.Screen
+          name="OfficeTasks"
+          component={OfficeTasksScreen}
           options={{ headerShown: false }}
         />
 
@@ -537,6 +647,78 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   toOfficeTxt:{
+    fontSize: 20,
+    color: 'white'
+  },
+
+
+  ///
+
+  officeItem:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  officeOptionsView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F3E9DC',
+  },
+  officeQn: {
+    fontSize: 20,
+    color: 'black'
+  },
+  officeListItem: {
+    height: 50,
+    justifyContent: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "#F3E9DC",
+    paddingLeft: 20,
+  },
+  officeButton: {
+    backgroundColor: '#895737',
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+  },
+  officeOptionText: {
+    fontSize: 20,
+    color: 'white'
+    
+  },
+
+  officeDetailsView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F3E9DC',
+  },
+  officeDetailTxt1:{
+    fontSize: 15,
+  },
+  officeDetailDescriptionTxt:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#F0E6EF',
+    textAlign: 'center',
+    backgroundColor: '#C08552',
+    margin: 10,
+    padding: 20,
+    borderRadius: 15,
+  },
+  officeDetailImage:{
+    width: 200,
+    height: 200,
+    margin: 10,
+  },
+  toDeskBtn: {
+    backgroundColor: '#895737',
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+  },
+  toDeskTxt:{
     fontSize: 20,
     color: 'white'
   },
