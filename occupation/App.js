@@ -13,6 +13,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { FontAwesome } from '@expo/vector-icons';
 import { BrushTeethScreen, ToiletScreen, DressUpScreen, EatBreakfastScreen } from './screens/MorningScreens';
+import EndScreen from "./screens/EndScreen";
+import AfterWorkScreen from "./screens/AfterWorkScreen";
+import FeedFishScreen from "./screens/FeedFishScreen";
+import FeedDogScreen from "./screens/FeedDogScreen";
+import WatchShowScreen from "./screens/WatchShowScreen";
 
 // variable for the whole main stack
 const TopStack = createStackNavigator();
@@ -209,30 +214,43 @@ function LeaveHouseScreen({ navigation }) {
 
 
 function TravelDetailsScreen({ navigation, route }) {
-  const { travelImageLink, Description } = route.params;
+  const { travelImageLink, Description, isTravellingHome } = route.params;
 
   return (
     <View style={styles.travelDetailsView}>
       <Text style={styles.travelDetailTxt1}>Mode of transport chosen:</Text>
       <Text style={styles.travelDetailDescriptionTxt}>{Description}</Text>
       <Image style={styles.travelDetailImage} source={{ uri: travelImageLink}} />
-      <TouchableOpacity style={styles.toOfficeBtn} onPress={() => navigation.navigate('OfficeDesk')}>
+      <TouchableOpacity style={styles.toOfficeBtn} onPress={() => {
+        if (isTravellingHome) {
+          navigation.navigate('After work');
+        } else {
+          navigation.navigate('OfficeDesk');
+        }
+        
+      }}>
         <Text style={styles.toOfficeTxt}>
-          Continue into Office
+          {isTravellingHome? "Enter your home": "Continue into Office"}
         </Text>          
       </TouchableOpacity>
     </View>
   );
 }
 
-function TravelSelectionScene({ navigation }) {
+function TravelSelectionScene({ navigation, route }) {
+  const [isTravellingHome, setTravellingHome] = useState(false)
 
+  useEffect(() => {
+    if (route.params?.isGoingHome) {
+      setTravellingHome(true);
+    }
+  }, [route.params?.isGoingHome]);
 
   // note the parameter has to be called item lol
   function renderItem({ item }) {
     return (
       <View style={styles.travelItem}>
-      <TouchableOpacity style={styles.travelButton} onPress={() => navigation.navigate('TravelDetails', {...item })}>
+      <TouchableOpacity style={styles.travelButton} onPress={() => navigation.navigate('TravelDetails', {...item, isTravellingHome })}>
         <Text style={styles.travelOptionText}>
           {item .OptionText}
         </Text>          
@@ -243,7 +261,7 @@ function TravelSelectionScene({ navigation }) {
 
   return (
     <View style={styles.travelOptionsView}>
-      <Text style={styles.travelQn}>How do you plan to travel to work?</Text>
+      <Text style={styles.travelQn}>How do you plan to travel?</Text>
       <FlatList
         style={{ width: "100%" }}
         data={TravelOptions}
@@ -263,7 +281,7 @@ const TravelOptions = [
   {
     OptionText: 'Run',
     travelImageLink:'https://www.stockvault.net/data/2018/07/17/253138/preview16.jpg',
-    Description: "Even travelling to work is a workout for you",
+    Description: "Even travelling is a workout for you",
     id: 2,
   },
   {
@@ -324,11 +342,7 @@ function OfficeTasksScreen({ navigation, route }) {
 function OfficeDeskScreen({ navigation }) {
 
   const [tasksDone, setTasksDone] = useState(0);
-  
-  // useEffect(() => {
-  //   // Update the document title using the browser API
-    
-  // });
+  const isGoingHome = true;
 
   // note the parameter has to be called item lol
   function renderItem({ item }) {
@@ -349,11 +363,20 @@ function OfficeDeskScreen({ navigation }) {
   return (
     <View style={styles.officeOptionsView}>
       <Text style={styles.officeQn}>What to do at work?</Text>
+      <Text>Tasks done: {tasksDone} of 8</Text>
       <FlatList
         style={{ width: "100%" }}
         data={OfficeOptions}
         renderItem={renderItem}
       />
+      {tasksDone > 7? 
+      <TouchableOpacity style={styles.goHomeBtn} onPress={() => navigation.navigate('Travelling', { isGoingHome })}>
+        <Text style={styles.goHomeTxt}>
+          Go back home
+        </Text>          
+      </TouchableOpacity>
+      :null}
+      
     </View>
   )
 }
@@ -361,49 +384,49 @@ function OfficeDeskScreen({ navigation }) {
 const OfficeOptions = [
   {
     OptionText: 'Check Emails',
-    travelImageLink:'',
-    Description: "Your email is full of spam as usual. You delete all.",
+    travelImageLink:'https://live.staticflickr.com/4896/45739294712_1b35584757_b.jpg',
+    Description: "Your email is full of spam as usual. Invoice? Quater finance report? Bah! You delete all.",
     id: 1,
   },
   {
     OptionText: 'Coffee Break',
-    travelImageLink:'',
+    travelImageLink:'https://cdn.pixabay.com/photo/2017/08/06/06/59/coffee-break-2589688_1280.jpg',
     Description: "Time for more coffee!",
     id: 2,
   },
   {
     OptionText: 'Snack',
-    travelImageLink:'',
+    travelImageLink:'https://live.staticflickr.com/3558/3818332361_316cbe9302_b.jpg',
     Description: "These chips aren't going to eat themselves anyways.",
     id: 3,
   },
   {
     OptionText: 'Chat with coworker',
-    travelImageLink:'',
+    travelImageLink:'https://st4.depositphotos.com/13194036/19952/i/1600/depositphotos_199523362-stock-photo-multicultural-business-people-having-coffee.jpg',
     Description: "That dog is cute but we've already seen a thousand pictures of it.",
     id: 4,
   },
   {
     OptionText: 'Meeting',
-    travelImageLink:'',
+    travelImageLink:'https://st4.depositphotos.com/13193658/22265/i/1600/depositphotos_222659590-stock-photo-adult-man-talking-workers-meeting.jpg',
     Description: "This could honestly have been an email.",
     id: 5,
   },
   {
     OptionText: 'Napping',
-    travelImageLink:'',
+    travelImageLink:'https://st4.depositphotos.com/13194036/20677/i/1600/depositphotos_206772050-stock-photo-young-man-sleeping-kitchen-table.jpg',
     Description: "Just a little shut eye won't hurt right?",
     id: 6,
   },
   {
     OptionText: 'Phone Game',
-    travelImageLink:'',
+    travelImageLink:'https://c8.alamy.com/comp/EW6EAR/funny-businessman-playing-in-game-on-the-phone-in-office-EW6EAR.jpg',
     Description: "Work was too boring anyways",
     id: 7,
   },
   {
     OptionText: 'Toilet',
-    travelImageLink:'',
+    travelImageLink:'https://i.pinimg.com/564x/4d/9c/ea/4d9cea3840a2cb503adfa668141c254e.jpg',
     Description: "Boss gets a dollar, we get a dime, that's why we poop on company time XD",
     id: 8,
   },
@@ -477,6 +500,32 @@ export default function App() {
         <TopStack.Screen
           name="OfficeTasks"
           component={OfficeTasksScreen}
+          options={{ headerShown: false }}
+        />
+
+        <TopStack.Screen
+          name="After work"
+          component={AfterWorkScreen}
+          options={{ headerShown: false }}
+        />
+        <TopStack.Screen
+          name="Feed fish"
+          component={FeedFishScreen}
+          options={{ headerShown: false }}
+        />
+        <TopStack.Screen
+          name="Feed dog"
+          component={FeedDogScreen}
+          options={{ headerShown: false }}
+        />
+        <TopStack.Screen
+          name="Watch show"
+          component={WatchShowScreen}
+          options={{ headerShown: false }}
+        />
+        <TopStack.Screen
+          name="End"
+          component={EndScreen}
           options={{ headerShown: false }}
         />
 
@@ -725,6 +774,17 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   toDeskTxt:{
+    fontSize: 20,
+    color: 'white'
+  },
+
+  goHomeBtn: {
+    backgroundColor: '#5e3023',
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+  },
+  goHomeTxt:{
     fontSize: 20,
     color: 'white'
   },
