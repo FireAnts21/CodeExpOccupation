@@ -6,10 +6,8 @@ A office work simulation app
 
 <img src="/ReadMeImages/SnoozeGif.gif" width="300" height="525">
 
-![Snooze Alarm](/ReadMeImages/SnoozeGif.gif)
- 
-![Preparing for work](/ReadMeImages/MorningGif.gif)
- 
-![Office Activities](/ReadMeImages/OfficeWork.gif)
- 
-![Home after work](/ReadMeImages/ComeHomeGif.gif) 
+<img src="/ReadMeImages/MorningGif.gif" width="300" height="525">
+
+<img src="/ReadMeImages/OfficeWork.gif" width="300" height="525">
+
+<img src="/ReadMeImages/ComeHomeGif.gif" width="300" height="525">
