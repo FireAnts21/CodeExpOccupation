@@ -263,7 +263,7 @@ function TravelSelectionScene({ navigation, route }) {
     <View style={styles.travelOptionsView}>
       <Text style={styles.travelQn}>How do you plan to travel?</Text>
       <FlatList
-        style={{ width: "100%" }}
+        style={{ width: "100%", height:"60%" }}
         data={TravelOptions}
         renderItem={renderItem}
       />
@@ -363,13 +363,13 @@ function OfficeDeskScreen({ navigation }) {
   return (
     <View style={styles.officeOptionsView}>
       <Text style={styles.officeQn}>What to do at work?</Text>
-      <Text>Tasks done: {tasksDone} of 8</Text>
+      <Text>Tasks done: {tasksDone} of 5</Text>
       <FlatList
-        style={{ width: "100%" }}
+        style={{ width: "100%", height:"60%" }}
         data={OfficeOptions}
         renderItem={renderItem}
       />
-      {tasksDone > 7? 
+      {tasksDone > 4? 
       <TouchableOpacity style={styles.goHomeBtn} onPress={() => navigation.navigate('Travelling', { isGoingHome })}>
         <Text style={styles.goHomeTxt}>
           Go back home
@@ -650,7 +650,8 @@ const styles = StyleSheet.create({
   },
   travelQn: {
     fontSize: 20,
-    color: 'black'
+    color: 'black',
+    marginTop: 50,
   },
   travelListItem: {
     height: 50,
@@ -722,7 +723,8 @@ const styles = StyleSheet.create({
   },
   officeQn: {
     fontSize: 20,
-    color: 'black'
+    color: 'black',
+    marginTop: 50,
   },
   officeListItem: {
     height: 50,
@@ -783,6 +785,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     margin: 10,
+    marginBottom: 50,
   },
   goHomeTxt:{
     fontSize: 20,
