@@ -227,56 +227,6 @@ function TravelDetailsScreen({ navigation, route }) {
 
 function TravelSelectionScene({ navigation }) {
 
-  const TravelOptions = [
-    {
-      OptionText: 'Walk',
-      travelImageLink:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2s46gtrFDR29T9afG2imcLE2wel7jtK8UVg&usqp=CAU',
-      Description: "You even stop to smell the roses",
-      id: 1,
-    },
-    {
-      OptionText: 'Run',
-      travelImageLink:'https://www.stockvault.net/data/2018/07/17/253138/preview16.jpg',
-      Description: "Even travelling to work is a workout for you",
-      id: 2,
-    },
-    {
-      OptionText: 'Cycle',
-      travelImageLink:'https://mopirg.org/sites/pirg/files/46368744211_57f61cd627_o.jpg',
-      Description: "You choose the environmental option",
-      id: 3,
-    },
-    {
-      OptionText: 'Skate',
-      travelImageLink:'https://live.staticflickr.com/3120/5715025524_777dec59ca_b.jpg',
-      Description: "She was a s8r boi she said see you l8r boi",
-      id: 4,
-    },
-    {
-      OptionText: 'Train',
-      travelImageLink:'https://upload.wikimedia.org/wikipedia/commons/9/97/MRT_in_Singapore.jpg',
-      Description: "Please mind the gap",
-      id: 5,
-    },
-    {
-      OptionText: 'Bus',
-      travelImageLink:'https://static.straitstimes.com.sg/s3fs-public/articles/2019/02/13/wc-bus-1302.jpg',
-      Description: "Hopefully you've got a seat for the ride",
-      id: 6,
-    },
-    {
-      OptionText: 'Car',
-      travelImageLink:'https://live.staticflickr.com/3201/2454925189_c1af72cc94_c.jpg',
-      Description: "Cause exercise and the environment is overrate anyway. Right?",
-      id: 7,
-    },
-    {
-      OptionText: 'Chauffeur',
-      travelImageLink:'https://live.staticflickr.com/54/124346198_aa0a2afaf6.jpg',
-      Description: "Way to flex on everyone :P",
-      id: 8,
-    },
-  ]
 
   // note the parameter has to be called item lol
   function renderItem({ item }) {
@@ -303,6 +253,57 @@ function TravelSelectionScene({ navigation }) {
   )
 }
 
+const TravelOptions = [
+  {
+    OptionText: 'Walk',
+    travelImageLink:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2s46gtrFDR29T9afG2imcLE2wel7jtK8UVg&usqp=CAU',
+    Description: "You even stop to smell the roses",
+    id: 1,
+  },
+  {
+    OptionText: 'Run',
+    travelImageLink:'https://www.stockvault.net/data/2018/07/17/253138/preview16.jpg',
+    Description: "Even travelling to work is a workout for you",
+    id: 2,
+  },
+  {
+    OptionText: 'Cycle',
+    travelImageLink:'https://mopirg.org/sites/pirg/files/46368744211_57f61cd627_o.jpg',
+    Description: "You choose the environmental option",
+    id: 3,
+  },
+  {
+    OptionText: 'Skate',
+    travelImageLink:'https://live.staticflickr.com/3120/5715025524_777dec59ca_b.jpg',
+    Description: "She was a s8r boi she said see you l8r boi",
+    id: 4,
+  },
+  {
+    OptionText: 'Train',
+    travelImageLink:'https://upload.wikimedia.org/wikipedia/commons/9/97/MRT_in_Singapore.jpg',
+    Description: "Please mind the gap",
+    id: 5,
+  },
+  {
+    OptionText: 'Bus',
+    travelImageLink:'https://static.straitstimes.com.sg/s3fs-public/articles/2019/02/13/wc-bus-1302.jpg',
+    Description: "Hopefully you've got a seat for the ride",
+    id: 6,
+  },
+  {
+    OptionText: 'Car',
+    travelImageLink:'https://live.staticflickr.com/3201/2454925189_c1af72cc94_c.jpg',
+    Description: "Cause exercise and the environment is overrate anyway. Right?",
+    id: 7,
+  },
+  {
+    OptionText: 'Chauffeur',
+    travelImageLink:'https://live.staticflickr.com/54/124346198_aa0a2afaf6.jpg',
+    Description: "Way to flex on everyone :P",
+    id: 8,
+  },
+]
+
 function OfficeTasksScreen({ navigation, route }) {
   const { travelImageLink, Description } = route.params;
 
@@ -323,57 +324,11 @@ function OfficeTasksScreen({ navigation, route }) {
 function OfficeDeskScreen({ navigation }) {
 
   const [tasksDone, setTasksDone] = useState(0);
-
-  const TravelOptions = [
-    {
-      OptionText: 'Check Emails',
-      travelImageLink:'',
-      Description: "Your email is full of spam as usual. You delete all.",
-      id: 1,
-    },
-    {
-      OptionText: 'Coffee Break',
-      travelImageLink:'',
-      Description: "Time for more coffee!",
-      id: 2,
-    },
-    {
-      OptionText: 'Snack',
-      travelImageLink:'',
-      Description: "These chips aren't going to eat themselves anyways.",
-      id: 3,
-    },
-    {
-      OptionText: 'Chat with coworker',
-      travelImageLink:'',
-      Description: "That dog is cute but we've already seen a thousand pictures of it.",
-      id: 4,
-    },
-    {
-      OptionText: 'Meeting',
-      travelImageLink:'',
-      Description: "This could honestly have been an email.",
-      id: 5,
-    },
-    {
-      OptionText: 'Napping',
-      travelImageLink:'',
-      Description: "Just a little shut eye won't hurt right?",
-      id: 6,
-    },
-    {
-      OptionText: 'Phone Game',
-      travelImageLink:'',
-      Description: "Work was too boring anyways",
-      id: 7,
-    },
-    {
-      OptionText: 'Toilet',
-      travelImageLink:'',
-      Description: "Boss gets a dollar, we get a dime, that's why we poop on company time XD",
-      id: 8,
-    },
-  ]
+  
+  // useEffect(() => {
+  //   // Update the document title using the browser API
+    
+  // });
 
   // note the parameter has to be called item lol
   function renderItem({ item }) {
@@ -396,12 +351,63 @@ function OfficeDeskScreen({ navigation }) {
       <Text style={styles.officeQn}>What to do at work?</Text>
       <FlatList
         style={{ width: "100%" }}
-        data={TravelOptions}
+        data={OfficeOptions}
         renderItem={renderItem}
       />
     </View>
   )
 }
+
+const OfficeOptions = [
+  {
+    OptionText: 'Check Emails',
+    travelImageLink:'',
+    Description: "Your email is full of spam as usual. You delete all.",
+    id: 1,
+  },
+  {
+    OptionText: 'Coffee Break',
+    travelImageLink:'',
+    Description: "Time for more coffee!",
+    id: 2,
+  },
+  {
+    OptionText: 'Snack',
+    travelImageLink:'',
+    Description: "These chips aren't going to eat themselves anyways.",
+    id: 3,
+  },
+  {
+    OptionText: 'Chat with coworker',
+    travelImageLink:'',
+    Description: "That dog is cute but we've already seen a thousand pictures of it.",
+    id: 4,
+  },
+  {
+    OptionText: 'Meeting',
+    travelImageLink:'',
+    Description: "This could honestly have been an email.",
+    id: 5,
+  },
+  {
+    OptionText: 'Napping',
+    travelImageLink:'',
+    Description: "Just a little shut eye won't hurt right?",
+    id: 6,
+  },
+  {
+    OptionText: 'Phone Game',
+    travelImageLink:'',
+    Description: "Work was too boring anyways",
+    id: 7,
+  },
+  {
+    OptionText: 'Toilet',
+    travelImageLink:'',
+    Description: "Boss gets a dollar, we get a dime, that's why we poop on company time XD",
+    id: 8,
+  },
+]
 
 // function containing the whole stack
 export default function App() {
