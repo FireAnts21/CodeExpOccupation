@@ -327,7 +327,7 @@ function OfficeTasksScreen({ navigation, route }) {
 
   return (
     <View style={styles.officeDetailsView}>
-      <Text style={styles.officeDetailTxt1}>Office activity choosen:</Text>
+      <Text style={styles.officeDetailTxt1}>Office activity chosen:</Text>
       <Text style={styles.officeDetailDescriptionTxt}>{Description}</Text>
       <Image style={styles.officeDetailImage} source={{ uri: travelImageLink}} />
       <TouchableOpacity style={styles.toDeskBtn} onPress={() => navigation.navigate('OfficeDesk')}>
